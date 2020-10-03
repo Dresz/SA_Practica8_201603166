@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+ frontend:
+  image: server
+  ports:
+   - "80:80"
+  depends_on:
+   - mysql
+  environment:
+   - PORT=80
+   - IP=mysql
+   - PASS=12345
+   - USER=root
+  networks:
+   - docker_xxx
+  
+ mysql:
+  image: msql
+  command: --default-authentication-plugin=mysql_native_password
+  restart: always
+  environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: practica
+  ports:
+   - "3306:3306"
+  networks:
+   - docker_xxx
+networks:
+    docker_xxx:
+      driver: bridge
