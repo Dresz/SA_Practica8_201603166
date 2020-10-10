@@ -14,7 +14,7 @@ services:
    - USER=root
   networks:
    - docker_xxx
-  
+
  mysql:
   image: msql
   command: --default-authentication-plugin=mysql_native_password
@@ -24,8 +24,22 @@ services:
       MYSQL_DATABASE: practica
   ports:
    - "3306:3306"
+  volumes:
+   - my-db:/var/lib/mysql
+  networks:
+   - docker_xxx
+
+ web:
+  image: pag
+  restart: always
+  ports:
+      - 3000:80
+  depends_on:
+   - frontend
   networks:
    - docker_xxx
 networks:
     docker_xxx:
       driver: bridge
+volumes:
+  my-db:

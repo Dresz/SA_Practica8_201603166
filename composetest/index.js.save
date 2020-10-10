@@ -1,13 +1,14 @@
 const express = require('express');
 var mysql = require('mysql');
-var cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({ limit: '1mb', extended: false }));
-app.use(bodyParser.json({ limit: '1mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
+app.use(bodyParser.json({ limit: '5
 app.use(cors());
 app.options('*', cors());
+
+
 
 const ip = process.env.IP || "127.0.0.1";
 const port =  process.env.PORT || 80;
@@ -63,7 +64,7 @@ app.post('/datos', (req, res) => {
             console.log('Connected to the database!');
         }
     });    
-   console.log(req.body);
+
     let query = `INSERT INTO cosa (nombre) VALUES ( '${req.body.name}');`;
     connection.query(query, function (err, result) {
         if (err) {
